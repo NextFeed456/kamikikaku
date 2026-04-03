@@ -100,23 +100,22 @@ button:hover {
 <div class="container">
 
   <h1>企画案ジェネレーター</h1>
-  <p class="desc">トレンドを元に、今伸びる企画案を自動生成します</p>
+  <p class="desc">条件に合った“使える配信企画”を生成します</p>
 
   <div class="card">
 
-    <select id="genre">
-      <option>雑談</option>
-      <option>VTuber</option>
+    <!-- ▼ここ変更 -->
+    <select id="mood">
+      <option value="ゆるい">ゆるい</option>
+      <option value="攻め">攻め</option>
     </select>
 
-    <select id="character">
-      <option>元気</option>
-      <option>落ち着き</option>
-    </select>
-
-    <select id="style">
-      <option>参加型</option>
-      <option>トーク</option>
+    <select id="type">
+      <option value="参加型">参加型</option>
+      <option value="討論">討論</option>
+      <option value="検証">検証</option>
+      <option value="ロールプレイ">ロールプレイ</option>
+      <option value="縛り">縛り</option>
     </select>
 
     <button onclick="generate()">生成する</button>
@@ -128,52 +127,58 @@ button:hover {
 </div>
 
 <script>
+
+// ▼企画データ（ここ増やしてOK）
+const projects = [
+  { title: "リスナーの黒歴史を読み上げて成仏させる会", category: "参加型", mood: "攻め", strength: 5 },
+  { title: "視聴者の限界飯をガチ採点してみた", category: "参加型", mood: "ゆるい", strength: 5 },
+  { title: "リスナーのスマホホーム画面チェック", category: "参加型", mood: "攻め", strength: 5 },
+  { title: "1億円もらえるけど〇〇禁止、どこまで許せる？", category: "討論", mood: "ゆるい", strength: 5 },
+  { title: "朝シャンvs夜シャン討論", category: "討論", mood: "ゆるい", strength: 4 },
+  { title: "利きコーラチャレンジ", category: "検証", mood: "ゆるい", strength: 4 },
+  { title: "激辛ペヤング無表情チャレンジ", category: "検証", mood: "攻め", strength: 5 },
+  { title: "スナックのママになって愚痴を聞く", category: "ロールプレイ", mood: "ゆるい", strength: 5 },
+  { title: "教祖になってリスナーを洗脳する配信", category: "ロールプレイ", mood: "攻め", strength: 5 },
+  { title: "語尾ニャン縛りで1時間配信", category: "縛り", mood: "ゆるい", strength: 4 },
+  { title: "英語禁止雑談チャレンジ", category: "縛り", mood: "攻め", strength: 5 }
+];
+
+// ▼生成ロジック
 function generate() {
 
-  const trends = [
-    "最近の出来事",
-    "SNSで話題",
-    "リスナーあるある",
-    "配信裏話"
-  ];
+  const mood = document.getElementById("mood").value;
+  const type = document.getElementById("type").value;
 
-  const formats = [
-    "実は○○だった",
-    "○○ランキング",
-    "○○してみた",
-    "○○あるある"
-  ];
+  const filtered = projects
+    .filter(p => p.mood === mood && p.category === type)
+    .sort((a, b) => b.strength - a.strength);
 
-  const trend = trends[Math.floor(Math.random() * trends.length)];
-  const format = formats[Math.floor(Math.random() * formats.length)];
+  if (filtered.length === 0) {
+    document.getElementById("output").innerText = "該当する企画がありません";
+    return;
+  }
 
-  const title = `${trend}の${format}`;
+  // 上位からランダムで3つ
+  const picks = filtered.slice(0, 5).sort(() => 0.5 - Math.random()).slice(0, 3);
 
-  const result = `
-【企画タイトル】
-${title}
+  let result = "";
 
-【配信の流れ】
-1. 導入
-2. 企画説明
-3. メイン
-4. コメント拾い
-5. 締め
+  picks.forEach((p, i) => {
+    result += `
+【企画${i + 1}】
+${p.title}
 
-【コメント誘導】
-「みんなはどう思う？」
-「コメントで教えて！」
+【ポイント】
+・コメントが伸びやすい
+・配信で即使える
 
-【伸びる理由】
-・共感でコメントが増える
-・参加型で離脱防止
-
-【サムネ案】
-・大文字＋強ワード
+----------------------
 `;
+  });
 
   document.getElementById("output").innerText = result;
 }
+
 </script>
 
 </body>
