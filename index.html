@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>企画案ジェネレーター｜NextFeed</title>
+
+<style>
+body {
+  font-family: sans-serif;
+  background: #0f172a;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+}
+
+select, button {
+  padding: 10px;
+  margin: 10px;
+  font-size: 16px;
+}
+
+.result {
+  background: #1e293b;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 10px;
+  text-align: left;
+  white-space: pre-wrap;
+}
+</style>
+</head>
+
+<body>
+
+<h1>🎯 企画案ジェネレーター</h1>
+
+<select id="genre">
+  <option>雑談</option>
+  <option>VTuber</option>
+</select>
+
+<select id="character">
+  <option>元気</option>
+  <option>落ち着き</option>
+</select>
+
+<select id="style">
+  <option>参加型</option>
+  <option>トーク</option>
+</select>
+
+<br>
+<button onclick="generate()">生成する</button>
+
+<div class="result" id="output"></div>
+
+<script>
+function generate() {
+  const genre = document.getElementById("genre").value;
+  const character = document.getElementById("character").value;
+  const style = document.getElementById("style").value;
+
+  const formats = [
+    "実は○○だった",
+    "○○ランキング",
+    "○○やってみた",
+    "○○禁止チャレンジ"
+  ];
+
+  const trends = [
+    "最近の出来事",
+    "SNSで話題",
+    "リスナーあるある",
+    "配信裏話"
+  ];
+
+  const format = formats[Math.floor(Math.random() * formats.length)];
+  const trend = trends[Math.floor(Math.random() * trends.length)];
+
+  const title = `${trend}の${format}`;
+
+  const result = `
+【企画タイトル】
+${title}
+
+【コンセプト】
+${genre}ジャンルで${character}キャラを活かした${style}配信
+
+【配信の流れ】
+1. 導入トーク
+2. 今日のテーマ説明
+3. メイン企画
+4. コメント拾い
+5. 締め
+
+【トーク例】
+「これマジであるよね？」
+「コメントで教えて！」
+
+【コメント誘導】
+「みんなはどう思う？」
+「1か2で答えて！」
+
+【伸びる理由】
+・共感系でコメントが増える
+・参加型で視聴維持率UP
+
+【サムネ案】
+・大きい文字＋驚き顔
+・「マジで？」など強ワード
+
+【タイトル案】
+・${title}
+・知らないと損する${trend}
+・これ共感できる？
+`;
+
+  document.getElementById("output").innerText = result;
+}
+</script>
+
+</body>
+</html>
