@@ -5,20 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>配信用 神企画ジェネレーター｜NextFeed</title>
   <style>
-    /* 全体設定（サムネ診断ツール風のクリーンな背景とフォント） */
+    /* 全体設定（プロ仕様のダークUI） */
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
-      color: #333;
-      background-color: #f7f9fc;
+      color: #cbd5f5;
+      background: linear-gradient(135deg, #0f172a, #020617);
       margin: 0;
       padding: 0;
       line-height: 1.6;
+      min-height: 100vh;
     }
 
     /* ヘッダー */
     header {
-      background-color: #ffffff;
-      border-bottom: 1px solid #e2e8f0;
+      background-color: #020617;
+      border-bottom: 1px solid #1e293b;
       padding: 15px 20px;
       display: flex;
       justify-content: space-between;
@@ -28,17 +29,18 @@
     .logo {
       font-size: 1.25rem;
       font-weight: bold;
-      color: #2d3748;
+      color: #ffffff;
       text-decoration: none;
     }
     header nav a {
       margin-left: 20px;
-      color: #4a5568;
+      color: #cbd5f5;
       text-decoration: none;
       font-size: 0.95rem;
+      transition: color 0.2s;
     }
     header nav a:hover {
-      color: #3182ce;
+      color: #38bdf8;
     }
 
     /* メインコンテナ */
@@ -53,38 +55,40 @@
       display: inline-flex;
       align-items: center;
       margin-bottom: 20px;
-      color: #3182ce;
+      color: #38bdf8;
       text-decoration: none;
       font-weight: bold;
       font-size: 0.95rem;
+      transition: color 0.2s;
     }
     .back-link:hover {
       text-decoration: underline;
+      color: #0ea5e9;
     }
 
     h1 {
       font-size: 24px;
-      color: #2d3748;
+      color: #ffffff;
       margin-top: 0;
       margin-bottom: 25px;
     }
 
-    /* カードデザイン（文字を囲う感じ） */
+    /* カードデザイン（ベース） */
     .card {
-      background: #ffffff;
+      background: #1e293b;
       padding: 24px;
       border-radius: 12px;
-      border: 1px solid #e2e8f0;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+      border: 1px solid #334155;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
       margin-bottom: 24px;
     }
     .card h2 {
       font-size: 1.1rem;
-      border-bottom: 2px solid #3182ce;
+      border-bottom: 2px solid #38bdf8;
       padding-bottom: 8px;
       margin-top: 0;
       margin-bottom: 16px;
-      color: #2d3748;
+      color: #ffffff;
     }
 
     /* ボタン・入力周り */
@@ -92,7 +96,7 @@
       font-weight: bold;
       margin-bottom: 12px;
       display: block;
-      color: #4a5568;
+      color: #38bdf8;
       font-size: 0.95rem;
     }
     .btn-group {
@@ -101,39 +105,41 @@
       gap: 8px;
     }
     button {
-      background-color: #3182ce;
-      color: white;
+      background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+      color: #ffffff;
       border: none;
       padding: 10px 16px;
       border-radius: 6px;
       cursor: pointer;
       font-weight: bold;
-      transition: all 0.2s;
       font-size: 0.9rem;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
     button:hover {
-      background-color: #2b6cb0;
-      box-shadow: 0 2px 4px rgba(49, 130, 206, 0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(56, 189, 248, 0.4);
     }
     .mood-toggles label {
       margin-right: 20px;
       cursor: pointer;
       font-size: 0.95rem;
-      color: #4a5568;
+      color: #cbd5f5;
     }
 
     /* 出力エリアの企画カード（情報をしっかり囲う） */
     .idea-card {
-      background-color: #ffffff;
-      border: 1px solid #e2e8f0;
+      background: #020617;
+      border: 1px solid #334155;
       border-radius: 8px;
       padding: 20px;
       margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
     }
     .idea-title {
       font-size: 1.15rem;
       font-weight: bold;
-      color: #2d3748;
+      color: #ffffff;
       margin-bottom: 15px;
       display: flex;
       align-items: center;
@@ -141,8 +147,8 @@
       gap: 8px;
     }
     .idea-content {
-      background-color: #f8fafc;
-      border: 1px solid #edf2f7;
+      background: #0f172a;
+      border: 1px solid #1e293b;
       border-radius: 6px;
       padding: 16px;
     }
@@ -153,57 +159,60 @@
       margin-bottom: 0;
     }
     .idea-label {
-      color: #3182ce;
+      color: #38bdf8;
       font-weight: bold;
       font-size: 0.9rem;
       margin-bottom: 4px;
     }
     .idea-text {
-      color: #4a5568;
+      color: #cbd5f5;
       font-size: 0.95rem;
     }
 
+    /* バッジ */
     .badge {
-      color: white;
+      color: #ffffff;
       padding: 4px 10px;
       border-radius: 20px;
       font-size: 0.75rem;
       font-weight: bold;
     }
-    .badge.strength { background: #e53e3e; }
-    .badge.category { background: #38a169; }
-    .badge.mood { background: #d69e2e; }
+    .badge.strength { background: #ef4444; }
+    .badge.category { background: #10b981; }
+    .badge.mood { background: #f59e0b; }
     
-    .error { color: #e53e3e; font-weight: bold; padding: 20px; }
+    .error { color: #f87171; font-weight: bold; padding: 20px; }
 
     /* 免責事項 */
     .disclaimer {
       font-size: 0.85rem;
-      color: #718096;
+      color: #94a3b8;
     }
 
     /* フッター */
     footer {
-      background-color: #ffffff;
-      border-top: 1px solid #e2e8f0;
-      color: #4a5568;
+      background-color: #020617;
+      border-top: 1px solid #1e293b;
+      color: #cbd5f5;
       padding: 30px 20px;
       margin-top: 50px;
       text-align: center;
     }
     .footer-links a {
-      color: #4a5568;
+      color: #cbd5f5;
       text-decoration: none;
       margin: 0 10px;
       font-size: 0.9rem;
+      transition: color 0.2s;
     }
     .footer-links a:hover {
+      color: #38bdf8;
       text-decoration: underline;
     }
     .copyright {
       margin-top: 15px;
       font-size: 0.85rem;
-      color: #a0aec0;
+      color: #64748b;
     }
   </style>
 </head>
@@ -531,7 +540,7 @@
     const shuffled = filtered.sort(() => 0.5 - Math.random());
     const picks = shuffled.slice(0, 3);
 
-    let html = `<div style="color:#718096; font-size: 0.9rem; margin-bottom: 20px;"><strong>【検索条件】</strong> ジャンル：${selectedCategory} / ムード：${selectedMood} （該当: ${filtered.length}件）</div>`;
+    let html = `<div style="color:#cbd5f5; font-size: 0.9rem; margin-bottom: 20px;"><strong>【検索条件】</strong> ジャンル：${selectedCategory} / ムード：${selectedMood} （該当: ${filtered.length}件）</div>`;
 
     picks.forEach((p, i) => {
       html += `
