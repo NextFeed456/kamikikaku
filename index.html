@@ -5,20 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>配信用 神企画ジェネレーター｜NextFeed</title>
   <style>
-    /* 全体設定 */
+    /* 全体設定（サムネ診断ツール風のクリーンな背景とフォント） */
     body {
-      font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
       color: #333;
-      background-color: #f4f6f8;
+      background-color: #f7f9fc;
       margin: 0;
       padding: 0;
       line-height: 1.6;
     }
-    
+
     /* ヘッダー */
     header {
-      background-color: #fff;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      background-color: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
       padding: 15px 20px;
       display: flex;
       justify-content: space-between;
@@ -26,19 +26,19 @@
       flex-wrap: wrap;
     }
     .logo {
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       font-weight: bold;
-      color: #333;
+      color: #2d3748;
       text-decoration: none;
     }
     header nav a {
       margin-left: 20px;
-      color: #555;
+      color: #4a5568;
       text-decoration: none;
       font-size: 0.95rem;
     }
     header nav a:hover {
-      color: #007bff;
+      color: #3182ce;
     }
 
     /* メインコンテナ */
@@ -50,11 +50,13 @@
 
     /* 戻るボタン */
     .back-link {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
       margin-bottom: 20px;
-      color: #007bff;
+      color: #3182ce;
       text-decoration: none;
       font-weight: bold;
+      font-size: 0.95rem;
     }
     .back-link:hover {
       text-decoration: underline;
@@ -62,136 +64,146 @@
 
     h1 {
       font-size: 24px;
-      border-bottom: 3px solid #007bff;
-      padding-bottom: 10px;
+      color: #2d3748;
       margin-top: 0;
       margin-bottom: 25px;
-      color: #2c3e50;
     }
 
-    /* コントロールパネル */
-    .control-group {
-      background: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      margin-bottom: 20px;
+    /* カードデザイン（文字を囲う感じ） */
+    .card {
+      background: #ffffff;
+      padding: 24px;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+      margin-bottom: 24px;
     }
+    .card h2 {
+      font-size: 1.1rem;
+      border-bottom: 2px solid #3182ce;
+      padding-bottom: 8px;
+      margin-top: 0;
+      margin-bottom: 16px;
+      color: #2d3748;
+    }
+
+    /* ボタン・入力周り */
     .control-label {
       font-weight: bold;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
       display: block;
-      color: #2c3e50;
+      color: #4a5568;
+      font-size: 0.95rem;
+    }
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
     }
     button {
-      background-color: #007bff;
+      background-color: #3182ce;
       color: white;
       border: none;
       padding: 10px 16px;
-      margin: 0 5px 10px 0;
-      border-radius: 5px;
+      border-radius: 6px;
       cursor: pointer;
       font-weight: bold;
-      transition: 0.2s;
+      transition: all 0.2s;
+      font-size: 0.9rem;
     }
     button:hover {
-      background-color: #0056b3;
+      background-color: #2b6cb0;
+      box-shadow: 0 2px 4px rgba(49, 130, 206, 0.3);
     }
     .mood-toggles label {
       margin-right: 20px;
       cursor: pointer;
-      font-size: 15px;
+      font-size: 0.95rem;
+      color: #4a5568;
     }
 
-    /* 出力エリア */
-    #output {
-      background: #fff;
-      padding: 25px;
+    /* 出力エリアの企画カード（情報をしっかり囲う） */
+    .idea-card {
+      background-color: #ffffff;
+      border: 1px solid #e2e8f0;
       border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      min-height: 200px;
-    }
-    .project-card {
-      border-bottom: 1px dashed #ccc;
-      padding-bottom: 20px;
+      padding: 20px;
       margin-bottom: 20px;
     }
-    .project-card:last-child {
-      border-bottom: none;
-      margin-bottom: 0;
-      padding-bottom: 0;
+    .idea-title {
+      font-size: 1.15rem;
+      font-weight: bold;
+      color: #2d3748;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
     }
+    .idea-content {
+      background-color: #f8fafc;
+      border: 1px solid #edf2f7;
+      border-radius: 6px;
+      padding: 16px;
+    }
+    .idea-content-row {
+      margin-bottom: 12px;
+    }
+    .idea-content-row:last-child {
+      margin-bottom: 0;
+    }
+    .idea-label {
+      color: #3182ce;
+      font-weight: bold;
+      font-size: 0.9rem;
+      margin-bottom: 4px;
+    }
+    .idea-text {
+      color: #4a5568;
+      font-size: 0.95rem;
+    }
+
     .badge {
       color: white;
-      padding: 3px 8px;
-      border-radius: 12px;
-      font-size: 12px;
-      margin-left: 8px;
-      display: inline-block;
-      vertical-align: middle;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: bold;
     }
-    .badge.strength { background: #e74c3c; }
-    .badge.category { background: #27ae60; }
-    .badge.mood { background: #2980b9; }
-
-    .error { color: #e74c3c; font-weight: bold; }
+    .badge.strength { background: #e53e3e; }
+    .badge.category { background: #38a169; }
+    .badge.mood { background: #d69e2e; }
+    
+    .error { color: #e53e3e; font-weight: bold; padding: 20px; }
 
     /* 免責事項 */
     .disclaimer {
-      background: #fff;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      margin-top: 40px;
-      font-size: 14px;
-      color: #666;
-    }
-    .disclaimer h2 {
-      font-size: 18px;
-      margin-top: 0;
-      margin-bottom: 10px;
-      color: #333;
+      font-size: 0.85rem;
+      color: #718096;
     }
 
     /* フッター */
     footer {
-      background-color: #2c3e50;
-      color: #ecf0f1;
-      padding: 40px 20px 20px;
+      background-color: #ffffff;
+      border-top: 1px solid #e2e8f0;
+      color: #4a5568;
+      padding: 30px 20px;
       margin-top: 50px;
+      text-align: center;
     }
-    .footer-container {
-      max-width: 800px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-    .footer-section h3 {
-      font-size: 16px;
-      margin-top: 0;
-      margin-bottom: 15px;
-      border-bottom: 1px solid #455a64;
-      padding-bottom: 5px;
-    }
-    .footer-section a {
-      color: #bdc3c7;
+    .footer-links a {
+      color: #4a5568;
       text-decoration: none;
-      display: block;
-      margin-bottom: 8px;
-      font-size: 14px;
+      margin: 0 10px;
+      font-size: 0.9rem;
     }
-    .footer-section a:hover {
-      color: #fff;
+    .footer-links a:hover {
+      text-decoration: underline;
     }
     .copyright {
-      text-align: center;
-      border-top: 1px solid #455a64;
-      padding-top: 20px;
-      margin-top: 30px;
-      font-size: 13px;
-      color: #95a5a6;
+      margin-top: 15px;
+      font-size: 0.85rem;
+      color: #a0aec0;
     }
   </style>
 </head>
@@ -210,51 +222,51 @@
   <div class="container">
     <a href="https://nextfeed456.github.io/" class="back-link">← トップページへ</a>
 
-    <h1>🚀 配信用 神企画ジェネレーター</h1>
+    <h1>配信用 神企画ジェネレーター</h1>
 
-    <div class="control-group">
-      <span class="control-label">🔥 ムード（雰囲気）を選択</span>
-      <div class="mood-toggles">
+    <div class="card">
+      <h2>🔍 企画の条件を選ぶ</h2>
+      
+      <span class="control-label">ムード（雰囲気）</span>
+      <div class="mood-toggles" style="margin-bottom: 20px;">
         <label><input type="radio" name="mood" value="すべて" checked> すべて</label>
         <label><input type="radio" name="mood" value="ゆるい"> ゆるい（平和・共感）</label>
         <label><input type="radio" name="mood" value="攻め"> 攻め（炎上ギリギリ・刺激）</label>
       </div>
+
+      <span class="control-label">ジャンルを選択して診断する（おすすめ度★4以上）</span>
+      <div class="btn-group">
+        <button onclick="generate('すべて')">すべて</button>
+        <button onclick="generate('参加型')">参加型</button>
+        <button onclick="generate('討論')">討論</button>
+        <button onclick="generate('検証')">検証</button>
+        <button onclick="generate('創作')">創作</button>
+        <button onclick="generate('ロールプレイ')">ロールプレイ</button>
+        <button onclick="generate('縛り')">縛り</button>
+        <button onclick="generate('ネタ')">ネタ</button>
+      </div>
     </div>
 
-    <div class="control-group">
-      <span class="control-label">🎯 ジャンルを選択して生成（おすすめ度★4以上を厳選）</span>
-      <button onclick="generate('すべて')">すべて</button>
-      <button onclick="generate('参加型')">参加型</button>
-      <button onclick="generate('討論')">討論</button>
-      <button onclick="generate('検証')">検証</button>
-      <button onclick="generate('創作')">創作</button>
-      <button onclick="generate('ロールプレイ')">ロールプレイ</button>
-      <button onclick="generate('縛り')">縛り</button>
-      <button onclick="generate('ネタ')">ネタ</button>
+    <div class="card">
+      <h2>💡 診断結果（プレビュー）</h2>
+      <div id="output" style="min-height: 150px;">ここに3つの神企画が表示されます...</div>
     </div>
 
-    <div id="output">ここに3つの神企画が出力されます...</div>
-
-    <div class="disclaimer">
-      <h2>免責事項</h2>
-      <p>このツールで生成される企画案は、YouTube・VTuber・ライブ配信での活用を想定したアイデアの提供を目的としています。<br>
-      生成された企画を実行したことによって生じたトラブル、炎上、規約違反、その他のいかなる損害についても、当サイト（NextFeed）は一切の責任を負いません。配信プラットフォームの利用規約を遵守し、ご自身の責任と判断のもとでご活用ください。</p>
+    <div class="card">
+      <h2>このツールについて</h2>
+      <p class="disclaimer">
+        このツールは、YouTube・VTuber・ライブ配信での活用を想定した企画アイデアの提供を目的としています。<br>
+        生成された企画を実行したことによって生じたトラブル、炎上、規約違反、その他のいかなる損害についても、当サイト（NextFeed）は一切の責任を負いません。プラットフォームの規約を遵守し、自己責任でご活用ください。
+      </p>
     </div>
   </div>
 
   <footer>
-    <div class="footer-container">
-      <div class="footer-section">
-        <h3>公式リンク</h3>
-        <a href="https://www.youtube.com/@Next_Feed" target="_blank">YouTube</a>
-        <a href="https://x.com/matsun0819" target="_blank">X (旧Twitter)</a>
-      </div>
-      <div class="footer-section">
-        <h3>サイト情報</h3>
-        <a href="https://nextfeed456.github.io/privacy/">プライバシーポリシー</a>
-        <a href="https://nextfeed456.github.io/contact/">お問い合わせ</a>
-        <a href="https://nextfeed456.github.io/about/">運営者情報</a>
-      </div>
+    <div class="footer-links">
+      <a href="https://www.youtube.com/@Next_Feed" target="_blank">YouTube</a>
+      <a href="https://x.com/matsun0819" target="_blank">X (旧Twitter)</a>
+      <a href="https://nextfeed456.github.io/privacy/">プライバシーポリシー</a>
+      <a href="https://nextfeed456.github.io/contact/">お問い合わせ</a>
     </div>
     <div class="copyright">
       &copy; NextFeed
@@ -262,7 +274,7 @@
   </footer>
 
 <script>
-  // ▼企画データ配列（200個）軽量化版
+  // ▼企画データ（200個）軽量化版
   const rawData = [
     // --- 参加型 ---
     ["リスナーの『ヤバい部屋』写真品評会", "参加型", "攻め", "汚部屋や個性的すぎる部屋の写真を映し、ツッコミを入れる。", "①写真公開→②ツッコミ→③ヤバさ判定", "他人の生活感を見る好奇心でコメント加速。", 5],
@@ -494,12 +506,10 @@
     ["空気イス耐久", "ネタ", "攻め", "空気イスの状態で雑談を始め、太ももが崩壊するまで何分いけるか。", "①姿勢セット→②最初は余裕→③足がプルプル震える→④悲鳴", "肉体的苦痛と雑談のアンバランスさがドSリスナーの大好物。", 4]
   ];
 
-  // データ成形
   const projects = rawData.map(d => ({
     title: d[0], category: d[1], mood: d[2], desc: d[3], flow: d[4], point: d[5], strength: d[6]
   }));
 
-  // 生成処理
   function generate(selectedCategory) {
     const moodElement = document.querySelector('input[name="mood"]:checked');
     const selectedMood = moodElement ? moodElement.value : "すべて";
@@ -514,27 +524,38 @@
     }
 
     if (filtered.length === 0) {
-      document.getElementById("output").innerHTML = `<span class="error">⚠️ 条件に合う企画が見つかりません。条件を変えて再度お試しください。</span>`;
+      document.getElementById("output").innerHTML = `<div class="error">⚠️ 条件に合う企画が見つかりません。条件を変えて再度お試しください。</div>`;
       return;
     }
 
     const shuffled = filtered.sort(() => 0.5 - Math.random());
     const picks = shuffled.slice(0, 3);
 
-    let html = `<div style="color:#555;"><strong>【検索条件】</strong> ジャンル：${selectedCategory} / ムード：${selectedMood} （該当: ${filtered.length}件）</div><hr style="border-color:#e0e0e0; margin:15px 0 25px;">`;
+    let html = `<div style="color:#718096; font-size: 0.9rem; margin-bottom: 20px;"><strong>【検索条件】</strong> ジャンル：${selectedCategory} / ムード：${selectedMood} （該当: ${filtered.length}件）</div>`;
 
     picks.forEach((p, i) => {
       html += `
-        <div class="project-card">
-          <div style="font-size: 1.15rem; font-weight: bold; color: #2c3e50; margin-bottom: 12px;">
+        <div class="idea-card">
+          <div class="idea-title">
             【案${i+1}】 ${p.title} 
             <span class="badge strength">期待値: ★${p.strength}</span>
             <span class="badge category">${p.category}</span>
             <span class="badge mood">${p.mood}</span>
           </div>
-          <div><strong style="color:#007bff;">■ 内容：</strong><br>${p.desc}</div>
-          <div style="margin-top: 8px;"><strong style="color:#007bff;">■ 流れ：</strong><br>${p.flow}</div>
-          <div style="margin-top: 8px; color: #555;"><strong style="color:#007bff;">■ ポイント（なぜ伸びるか）：</strong><br>${p.point}</div>
+          <div class="idea-content">
+            <div class="idea-content-row">
+              <div class="idea-label">■ 内容：</div>
+              <div class="idea-text">${p.desc}</div>
+            </div>
+            <div class="idea-content-row">
+              <div class="idea-label">■ 流れ：</div>
+              <div class="idea-text">${p.flow}</div>
+            </div>
+            <div class="idea-content-row">
+              <div class="idea-label">■ ポイント（なぜ伸びるか）：</div>
+              <div class="idea-text">${p.point}</div>
+            </div>
+          </div>
         </div>
       `;
     });
